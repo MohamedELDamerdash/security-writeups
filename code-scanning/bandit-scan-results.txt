@@ -1,0 +1,81 @@
+Scan results:
+>> Issue: [B106:hardcoded_password_funcarg] Possible hardcoded password: 'mysecurepassword'
+   OWASP:A6 - Sec Misconfiguration
+   Severity: High   Confidence: High
+   Location: SampleCode/init_db.py:14
+13	    def open(self):
+14	        self.conn = psycopg2.connect(user = "webappuser",
+15	                                    password = "mysecurepassword",
+16	                                    host = "localhost",
+17	                                    port = "5432",
+18	                                    database = "website")
+19	        self.cursor = self.conn.cursor()
+RECM..:
+https://owasp.org/www-community/vulnerabilities/Use_of_hard-coded_password
+--------------------------------------------------
+>> Issue: [B703:django_mark_safe] Potential XSS on mark_safe function.
+  OWASP:A7 - XSS
+   Severity: High   Confidence: High
+   Location: SampleCode/create_customer.py:24
+23	        self.password = hashlib.md5(password.encode('utf-8')).hexdigest()
+24	        self.banner = safestring.mark_safe(banner)
+25	
+RECM..:
+https://docs.djangoproject.com/en/dev/topics/security/#cross-site-scripting-xss-protection
+--------------------------------------------------
+>> Issue: [B303:blacklist] Use of insecure MD2, MD4, MD5, or SHA1 hash function.
+   OWASP:A3 - Sensitive Data Exposure
+   Severity: Med   Confidence: High
+   Location: SampleCode/create_customer.py:23
+22	        self.email = email
+23	        self.password = hashlib.md5(password.encode('utf-8')).hexdigest()
+24	        self.banner = safestring.mark_safe(banner)
+RECM..:
+https://owasp.org/Top10/A02_2021-Cryptographic_Failures/
+--------------------------------------------------
+
+>> Issue: [B320:blacklist] Using lxml.etree.fromstring to parse untrusted XML data is known to be vulnerable to XML attacks. Replace lxml.etree.fromstring with its defusedxml equivalent function.
+  OWASP:A4 - XXE
+   Severity: Med   Confidence: Med
+   Location: SampleCode/fix_customer_orders.py:11
+10	def customerOrdersXML():
+11	    root = lxml.etree.fromstring(xmlString)
+12	    root = fromstring(xmlString)
+RECM..:
+https://docs.openstack.org/bandit/1.4.0/blacklists/blacklist_imports.html#b404-import-subprocess
+JSON - Try to use less complex data formats such as JSON which don't have DTD
+Disable DTD Processing - Disable both XXE and DTD to prevent RCE in the XML parsers
+Verify XML Data - Always validate your XML data before processing to make sure they don't contain any malicious code.
+----------------------
+>> Issue: [B404:blacklist] Consider possible security implications associated with subprocess module.
+   OWASP:A4 - XXE
+   Severity: Low   Confidence: Med
+   Location: SampleCode/onLogin.py:1
+1	import os, sys, subprocess
+2	
+3	class userLogin():
+4	    def __init__(self):
+RECM..:
+https://docs.openstack.org/bandit/1.4.0/blacklists/blacklist_imports.html#b404-import-subprocess
+--------------------------------------------------
+>> Issue: [B603:subprocess_without_shell_equals_true] subprocess call - check for execution of untrusted input.
+     OWASP:A1 - Injection
+   Severity: Low
+   Location: SampleCode/onLogin.py:8
+7	    def process(self, user, startupcmd):
+8	        p = subprocess.Popen([startupcmd], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+9	        r = p.communicate()[0]
+  rec..:
+  https://security.openstack.org/guidelines/dg_use-subprocess-securely.html
+--------------------------------------------------
+>> Issue: [B311:blacklist] Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+  OWASP:FALSEPOSITIVE
+   Severity: FALSEPOSITIVE
+   Location: SampleCode/init_db.py:40
+39	        letters = string.ascii_lowercase
+40	        result_str = ''.join(random.choice(letters) for i in range(length))
+41	        return result_str
+  rec..:
+  THIS IS A FALSE POSITIVE
+--------------------------------------------------
+

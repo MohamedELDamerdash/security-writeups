@@ -14,6 +14,15 @@ Each folder documents real lab work with screenshots of every step, from detecti
 | [OAuth Attacks](web-oauth/) | 3 labs: implicit flow authentication bypass, forced profile linking, account hijacking via redirect |
 | [HTTP Request Smuggling](web-http-request-smuggling/) | CL.TE desynchronization exploitation and confirmation via differential responses |
 
+
+## Security projects
+
+| Project | What it covers |
+|---|---|
+| [Threat Model Report](threat-model-report/) | Full threat model for a web app: asset inventory, architecture audit, threat actors, vulnerability and risk analysis, mitigation plan |
+| [OS Hardening](os-hardening/) | NIST 800-53 hardening controls (AC-2, AC-8, CM-11) with configuration evidence. Group project with Islam Hassan Mohamed |
+| [Static Code Scanning](code-scanning/) | Bandit SAST of a Django app: hardcoded credentials, XSS, weak hashing, mapped to OWASP |
+
 ## Mobile security
 
 | Write-up | What it covers |
@@ -22,7 +31,7 @@ Each folder documents real lab work with screenshots of every step, from detecti
 
 ## Tools
 
-Burp Suite, Frida, Objection, MobSF, Drozer, apktool, jadx, DVWA, PortSwigger Web Security Academy.
+Burp Suite, Frida, Objection, MobSF, Drozer, apktool, jadx, Bandit, DVWA, PortSwigger Web Security Academy.
 
 ## Contact
 
